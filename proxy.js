@@ -2,7 +2,7 @@
  * @Author: legends-killer
  * @Date: 2024-07-29 21:04:54
  * @LastEditors: legends-killer
- * @LastEditTime: 2024-07-29 21:19:01
+ * @LastEditTime: 2024-07-29 21:44:44
  * @Description: 
  */
 const http_mod = require('http');
@@ -27,13 +27,15 @@ console.log("WebSocket server is listening on port 9000");
 const target = "ws://localhost:9001";
 
 wss.on("connection", function connection(ws, request) {
-  console.log("Client connected");
+  // console.log("Client connected");
   // 创建到后端 WebSocket 服务器的连接
   const backend = new ws_mod.WebSocket(target);
 
   backend.on("open", function open() {
+    console.log("Connected to backend");
     // 当后端 WebSocket 连接打开时，将客户端的消息转发到后端
     ws.on("message", function incoming(message) {
+      console.log('MSG from backend', message)
       backend.send(message);
     });
 
